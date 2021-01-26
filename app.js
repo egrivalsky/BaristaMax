@@ -26,6 +26,18 @@ let request;
 let drink;
 
 //Functions
+
+const timer = () => {
+    let t = 60;
+    let timer = document.getElementById('timer');
+    setInterval(()=> {
+        if (t > 0) {
+            t--;
+            timer.innerText = `${t}s`;
+        }
+    }, [1000])
+    }
+
 const generateOrder = () => {
     size = sizeArr[Math.floor(Math.random() * sizeArr.length)];
     milk = milkArr[Math.floor(Math.random() * milkArr.length)];
@@ -68,18 +80,24 @@ const generateDrinkButtons = (arr) => {
     }
 }
 
-generateOrder();
-generateSizeButtons(sizeArr);
-generateMilkButtons(milkArr);
-generateDrinkButtons(drinkArr);
-console.log(document.querySelectorAll('button'));
-console.log(drinkOrdered);
+
+function generateNextOrder() {
+    generateOrder();
+    let list = document.getElementById('current-ingredients');
+    let item = list.getElementsByTagName('li');
+    while (item.length > 0) {
+    list.removeChild(item[0]);
+    }
+}
+
+
 /*
 Event listeners
 */
 //adds ingredients to drink being made
+// ** - reacts to buttons ONLY because spans do not have a class assigned - **
 document.querySelector('#select-from').addEventListener('click', (e) => {
-    if (e.target.id !== "select-from") {
+    if (e.target.getAttribute('class')) {
         if (e.target.getAttribute('class') === 'size') {
             drinkServed.size = e.target.id;
         } else if (e.target.getAttribute('class') === 'milk') {
@@ -87,17 +105,19 @@ document.querySelector('#select-from').addEventListener('click', (e) => {
         } else {
             drinkServed.drink = e.target.id
         }
-    }
+    
         let ingredient = document.createElement('li');
         ingredient.innerText = e.target.id;
         document.getElementById('current-ingredients').append(ingredient);
-        console.log(e.target.id);
+        console.log(e.target);
         console.log(e.target.getAttribute('class'));
+    } 
     });
 
-//checks if drink has correct ingredients
+//checks if drink has correct ingredients then generates next order
 document.querySelector('#serve-drink').addEventListener('click', (e) => {
     let result;
+    let clear = "";
     if (drinkOrdered.size === drinkServed.size &&
         drinkOrdered.size === drinkServed.size &&
         drinkOrdered.size === drinkServed.size) {
@@ -105,8 +125,19 @@ document.querySelector('#serve-drink').addEventListener('click', (e) => {
         } else {
             result = "This is not what I ordered!"
         };
-    let announceResult = document.createElement('h1').innerText =result;
+    document.querySelector('#result').remove();
+    let announceResult = document.createElement('h1')
+    announceResult.setAttribute('id', 'result');
+    announceResult.innerText = result;
     document.querySelector('#pass-fail').append(announceResult);
-
+    generateNextOrder();
 })
 
+//starts timer and loads round
+document.querySelector('#start').addEventListener('click', timer);
+document.querySelector('#start').addEventListener('click', generateOrder);
+
+
+generateSizeButtons(sizeArr);
+generateMilkButtons(milkArr);
+generateDrinkButtons(drinkArr);

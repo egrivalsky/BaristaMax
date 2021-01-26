@@ -1,11 +1,15 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
 }
 main {
+    display: flex;
+    width: 100%;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 div {
