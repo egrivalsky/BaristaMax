@@ -1,0 +1,80 @@
+body {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+main {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    width: 250px;
+    box-shadow: 15px 15px #c9c9c9;
+    margin: 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border-radius: 15px;
+}
+span {
+    align-self: center;
+    margin: 25px 25px;
+    margin: 0;
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
+
+/*
+by id
+*/
+#request-sentence {
+    margin: 5px 5px;
+    align-self: center;
+}
+#customer-order {
+    background-color: yellow;
+}
+#select-from {
+    background-color: grey;
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    align-items: center;
+    font-size: 12px;
+}
+#drink-in-progress {
+    background-color: blue;
+}
+#pass-fail { 
+    background-color: whitesmoke;
+}
+#size {
+    width: 100%;
+}
+#milk {
+    width: 100%
+}
+#drink {
+    width: 100%;
+}
+#current-ingredients {
+    font-size: 18px;
+    color:thistle;
+}
+#serve-drink {
+    width: 500px;
+    height: 150px;
+    border-radius: 20px;
+}
