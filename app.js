@@ -80,13 +80,20 @@ Event listeners
 //adds ingredients to drink being made
 document.querySelector('#select-from').addEventListener('click', (e) => {
     if (e.target.id !== "select-from") {
+        if (e.target.getAttribute('class') === 'size') {
+            drinkServed.size = e.target.id;
+        } else if (e.target.getAttribute('class') === 'milk') {
+            drinkServed.milk = e.target.id;
+        } else {
+            drinkServed.drink = e.target.id
+        }
+    }
         let ingredient = document.createElement('li');
         ingredient.innerText = e.target.id;
         document.getElementById('current-ingredients').append(ingredient);
         console.log(e.target.id);
-        console.log(e.target.class);
-    };
-})
+        console.log(e.target.getAttribute('class'));
+    });
 
 //checks if drink has correct ingredients
 document.querySelector('#serve-drink').addEventListener('click', (e) => {
