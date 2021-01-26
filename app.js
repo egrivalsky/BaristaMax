@@ -45,7 +45,7 @@ const generateSizeButtons = (arr) => {
         let button = document.createElement('button')
         button.innerText=arr[i];
         button.setAttribute('id', arr[i])
-        drinkServed.size = arr[i];
+        button.setAttribute('class', 'size');
         document.getElementById('size').append(button);
     }
 }
@@ -54,16 +54,16 @@ const generateMilkButtons = (arr) => {
         let button = document.createElement('button');
         button.innerText=arr[i];
         button.setAttribute('id', arr[i]);
-        drinkServed.milk = arr[i];
+        button.setAttribute('class', 'milk');
         document.getElementById('milk').append(button);
     }
 }
 const generateDrinkButtons = (arr) => {
     for (let i = 0; i < arr.length; i++) {
         let button = document.createElement('button');
-        button.innerText=arr[i];
         button.setAttribute('id', arr[i]);
-        drinkServed.drink = \arr[i];
+        button.setAttribute('class', 'drink');
+        button.innerText=arr[i];
         document.getElementById('drink').append(button);
     }
 }
@@ -83,6 +83,8 @@ document.querySelector('#select-from').addEventListener('click', (e) => {
         let ingredient = document.createElement('li');
         ingredient.innerText = e.target.id;
         document.getElementById('current-ingredients').append(ingredient);
+        console.log(e.target.id);
+        console.log(e.target.class);
     };
 })
 
@@ -94,7 +96,7 @@ document.querySelector('#serve-drink').addEventListener('click', (e) => {
         drinkOrdered.size === drinkServed.size) {
             result = "SUCCESS!"
         } else {
-            result = "This is now what I ordered!"
+            result = "This is not what I ordered!"
         };
     let announceResult = document.createElement('h1').innerText =result;
     document.querySelector('#pass-fail').append(announceResult);
