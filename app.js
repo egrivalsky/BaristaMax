@@ -26,17 +26,26 @@ let request;
 let drink;
 
 //Functions
-
-const timer = () => {
+function runTimer() {
     let t = 60;
-    let timer = document.getElementById('timer');
-    setInterval(()=> {
-        if (t > 0) {
+    console.log('start button clicked');
+
+    let timerDisplay = document.getElementById('timer')
+    const gameTimer = setInterval(() => {
+        if (t >= 0) {
+            timerDisplay.innerText = t;
             t--;
-            timer.innerText = `${t}s`;
+        } else {
+            timesUp();
         }
-    }, [1000])
-    }
+        
+    }, 100);
+
+
+}
+
+
+
 
 const generateOrder = () => {
     size = sizeArr[Math.floor(Math.random() * sizeArr.length)];
@@ -80,7 +89,6 @@ const generateDrinkButtons = (arr) => {
     }
 }
 
-
 function generateNextOrder() {
     generateOrder();
     let list = document.getElementById('current-ingredients');
@@ -90,13 +98,7 @@ function generateNextOrder() {
     }
 }
 
-
-/*
-Event listeners
-*/
-//adds ingredients to drink being made
-// ** - reacts to buttons ONLY because spans do not have a class assigned - **
-document.querySelector('#select-from').addEventListener('click', (e) => {
+const chooseIngredients = (e) => {
     if (e.target.getAttribute('class')) {
         if (e.target.getAttribute('class') === 'size') {
             drinkServed.size = e.target.id;
@@ -109,15 +111,27 @@ document.querySelector('#select-from').addEventListener('click', (e) => {
         let ingredient = document.createElement('li');
         ingredient.innerText = e.target.id;
         document.getElementById('current-ingredients').append(ingredient);
-        console.log(e.target);
-        console.log(e.target.getAttribute('class'));
     } 
-    });
+    };
+
+
+function timesUp() {
+    console.log("TIME'S UP!");
+    clearInterval(gameTimer);
+
+}
+
+
+/*
+Event listeners
+*/
+//adds ingredients to drink being made
+// ** - reacts to buttons ONLY because spans do not have a class assigned - **
+document.querySelector('#select-from').addEventListener('click', chooseIngredients)
 
 //checks if drink has correct ingredients then generates next order
 document.querySelector('#serve-drink').addEventListener('click', (e) => {
     let result;
-    let clear = "";
     if (drinkOrdered.size === drinkServed.size &&
         drinkOrdered.size === drinkServed.size &&
         drinkOrdered.size === drinkServed.size) {
@@ -134,8 +148,9 @@ document.querySelector('#serve-drink').addEventListener('click', (e) => {
 })
 
 //starts timer and loads round
-document.querySelector('#start').addEventListener('click', timer);
+document.querySelector('#start').addEventListener('click', runTimer);
 document.querySelector('#start').addEventListener('click', generateOrder);
+
 
 
 generateSizeButtons(sizeArr);
