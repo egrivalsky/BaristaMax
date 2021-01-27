@@ -28,6 +28,8 @@ let drink;
 //Functions
 function runTimer() {
     let t = 60;
+    // ** - reacts to buttons ONLY because spans do not have a class assigned - **
+    document.querySelector('#select-from').addEventListener('click', chooseIngredients);
     console.log('start button clicked');
 
     let timerDisplay = document.getElementById('timer')
@@ -127,8 +129,7 @@ function timesUp() {
 Event listeners
 */
 //adds ingredients to drink being made
-// ** - reacts to buttons ONLY because spans do not have a class assigned - **
-document.querySelector('#select-from').addEventListener('click', chooseIngredients)
+
 
 //checks if drink has correct ingredients then generates next order
 document.querySelector('#serve-drink').addEventListener('click', (e) => {
