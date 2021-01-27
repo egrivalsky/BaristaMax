@@ -16,7 +16,7 @@ const sizeArr = ["small ", "medium ", "large "];
 const milkArr = ["whole milk", "soy"];
 const processArr = ["brew ", "espresso "];
 const requestArr = ["I'd like a ", "Let me get a ", "May I please have a ", "Gimme a "];
-const drinkArr = ["latte ", "coffee ", "espresso ", "iced coffee "];
+const drinkArr = ["latte ", "coffee ", "iced latte ", "chai ", "mocha", "iced coffee "];
 
 //Global variables
 let size;
@@ -36,7 +36,8 @@ function runTimer() {
             timerDisplay.innerText = t;
             t--;
         } else {
-            timesUp();
+            clearInterval(gameTimer);
+            console.log("done")
         }
         
     }, 100);
