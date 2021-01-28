@@ -154,7 +154,7 @@ const success = () => {
     //document.querySelector('#result').remove();
     let announceResult = document.createElement('h2')
     announceResult.setAttribute('id', 'result');
-    announceResult.setAttribute('style', 'color: blue');
+    announceResult.setAttribute('style', 'color: white');
     announceResult.innerText = "SUCCESS! +$1";
     document.querySelector('#pass-fail').append(announceResult);
     tips = tips + 1;
@@ -204,7 +204,7 @@ function timesUp() {
         let winLose = document.createElement('div');
         winLose.setAttribute('id', 'win-lose');
         winLose.style.flexDirection = 'column';
-        winLose.innerHTML = "<span>WOMP WOMP YOU LOST!</span>";
+        winLose.innerHTML = "<span id='womp-womp'>WOMP WOMP YOU LOST!</span>";
         let playAgainButton = document.createElement('button');
         playAgainButton.setAttribute('id', 'play-again-button');
         playAgainButton.style.marginTop = "10px"

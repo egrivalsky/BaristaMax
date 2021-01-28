@@ -7,20 +7,20 @@
     <script defer src="app.js"></script>
     <title>BaristaMax!</title>
 </head>
-<body>
+<body class="background">
     <header id="header">
         <div id="game-info">
             <h3>ROOUND 1</h3>
 
             <button id='start'>Start</button>
-            <span id='timer'>click start</span>
+            <span id='timer'></span>
         </div>
         <div id="game-progress">
         </div>
 
     </header>
     <main>
-        <div id="customer-order">CLICK START TO BEGIN</div>
+        <div id="customer-order"><span>CLICK START TO BEGIN</span></div>
 
         <div id="select-from">
           <span id="size"></span>
@@ -32,6 +32,7 @@
           <ul id="current-ingredients">
             
           </ul>
+          <button id="serve-drink">SERVE!</button>
         </div>
 
         <div id="pass-fail">
@@ -39,9 +40,6 @@
         </div>
     </main>
 
-    <footer>
-    <button id="serve-drink">SERVE!</button>
-
-    </footer>
 </body>
+
 </html>

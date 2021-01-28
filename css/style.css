@@ -1,9 +1,11 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
+    height: 800px;
+    justify-content: space-around;
 }
 header {
     display: flex;
@@ -14,74 +16,125 @@ main {
     display: flex;
     width: 100%;
     justify-content: center;
-    flex-wrap: wrap;
     align-items: center;
 }
 
 div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    height: 250px;
-    width: 250px;
-    box-shadow: 15px 15px #c9c9c9;
-    margin: 2%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    border-radius: 15px;
+    width: 300px;
+    height: 300px;
 }
 span {
-    align-self: center;
-    margin: 25px 25px;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 footer {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+ul {
+    text-align: center;
+    list-style-type: none;
+    font-size: 36px;
+}
+li {
+    margin: 10px;
+}
 
-
+button {
+    background-color: rgba(255, 255, 255, .6);
+    border-radius: 10px;
+    margin: 5px auto
+}
+h3 {
+    margin-top: 75px;
+}
 
 
 
 /*
 by id
 */
+
+#start {
+    width: 80%;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+}
 #game-info {
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     order: -1;
+    background-color: rgba(255, 255, 255, .5);
 }
 #request-sentence {
     margin: 5px 5px;
     align-self: center;
 }
 #customer-order {
-    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size: 24px;    
 }
 #select-from {
-    background-color: grey;
+
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 12px;
 }
 #drink-in-progress {
-    background-color: blue;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
 }
 #pass-fail { 
-    background-color: whitesmoke;
-}
-#game-progress {
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 
 }
+#game-progress {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+#win-lose {
+        border-radius: 20px;
+        width: 500px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        order: -1;
+        background-color: rgba(228, 20, 20, 0.6);
+}
+#womp-womp {
+    font-size: 48px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+
+#win-lose button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    width: 80%;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
 #size {
     width: 100%;
 }
@@ -93,14 +146,41 @@ by id
 }
 #current-ingredients {
     font-size: 18px;
-    color:thistle;
+
 }
 #serve-drink {
-    width: 500px;
-    height: 150px;
+    width: 80%;
+    height: 40px;
+    margin: 10px;
     border-radius: 20px;
+    align-self: center;
+
 }
 
 #goal-for-round {
     margin: 0;
+}
+
+.background {
+    background-image: url("/oslo.jpg");
+    height: 1000px;
+    background-size: cover;
+}
+
+main div {
+    width: 250px;
+    height: 250px;
+    margin: 50px 25px;
+    border-radius: 20px;
+    background-color: rgba(27, 57, 228, .5);
+    box-shadow: 20px 20px 25px -5px rgba(0, 0, 0, .5) inset; 
+    color: white;
+    padding: 20px;
+    
+}
+
+#timer {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 75px;
 }
