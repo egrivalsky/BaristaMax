@@ -3,6 +3,12 @@ body {
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
+}
+header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 main {
     display: flex;
@@ -43,6 +49,12 @@ footer {
 /*
 by id
 */
+#game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: -1;
+}
 #request-sentence {
     margin: 5px 5px;
     align-self: center;
@@ -53,8 +65,7 @@ by id
 #select-from {
     background-color: grey;
     display: flex;
-    flex-wrap: wrap;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
     font-size: 12px;
 }
@@ -63,6 +74,13 @@ by id
 }
 #pass-fail { 
     background-color: whitesmoke;
+}
+#game-progress {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 #size {
     width: 100%;
@@ -81,4 +99,8 @@ by id
     width: 500px;
     height: 150px;
     border-radius: 20px;
+}
+
+#goal-for-round {
+    margin: 0;
 }

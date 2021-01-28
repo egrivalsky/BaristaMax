@@ -19,19 +19,43 @@ const requestArr = ["I'd like a ", "Let me get a ", "May I please have a ", "Gim
 const drinkArr = ["latte ", "coffee ", "iced latte ", "chai ", "mocha", "iced coffee "];
 
 //Global variables
+let t;
 let size;
 let milk;
 let process;
 let request;
 let drink;
+let roundNumber = 0;
+let tips = 0;
 
 //Functions
+
+function startGame() {
+    roundNumber = roundNumber + 1;
+    runTimer();
+    generateOrder();
+    let gameInfo = document.getElementById('game-info')
+    gameInfo.getElementsByTagName('h3')[0].innerText = `ROUND ${roundNumber}`
+    document.querySelector('#game-progress');
+    let h2ForTipsLabel = document.createElement('h2');
+    h2ForTipsLabel.setAttribute('id', 'total-tips-label');
+    let h2ForTipsAmount = document.createElement('h2');
+    h2ForTipsAmount.setAttribute('id', 'tips-display')
+    document.querySelector('#game-progress').append(h2ForTipsLabel);
+    h2ForTipsLabel.innerText = `Total tips: `;
+    h2ForTipsAmount.innerText = `$${tips}`
+    document.getElementById('game-progress').append(h2ForTipsAmount);
+    let goalForRound = document.createElement('span');
+    goalForRound.setAttribute('id', 'goal-for-round');
+    goalForRound.innerText = `You need ${roundNumber * 5 + 5} for lunch.`
+    document.querySelector('#game-progress').append(goalForRound);
+
+}
 function runTimer() {
-    let t = 60;
+    t = 2;
     // ** - reacts to buttons ONLY because spans do not have a class assigned - **
     document.querySelector('#select-from').addEventListener('click', chooseIngredients);
     console.log('start button clicked');
-
     let timerDisplay = document.getElementById('timer')
     const gameTimer = setInterval(() => {
         if (t >= 0) {
@@ -39,16 +63,10 @@ function runTimer() {
             t--;
         } else {
             clearInterval(gameTimer);
-            console.log("done")
+            timesUp();
         }
-        
-    }, 100);
-
-
+    }, 1000);
 }
-
-
-
 
 const generateOrder = () => {
     size = sizeArr[Math.floor(Math.random() * sizeArr.length)];
@@ -117,12 +135,75 @@ const chooseIngredients = (e) => {
     } 
     };
 
+const success = () => {
+    document.querySelector('#result').remove();
+    let announceResult = document.createElement('h1')
+    announceResult.setAttribute('id', 'result');
+    announceResult.setAttribute('style', 'color: blue');
+    announceResult.innerText = "SUCCESS! +$1";
+    document.querySelector('#pass-fail').append(announceResult);
+    tips = tips + 1;
+    console.log(tips);
+    let tipsDisplay = document.querySelector('#tips-display');
+    tipsDisplay.innerText = `$${tips}`;
+    generateNextOrder();
+}
+    
+const failure = () => {
+    document.querySelector('#result').remove();
+    let announceResult = document.createElement('h2')
+    announceResult.setAttribute('id', 'result');
+    announceResult.setAttribute('style', 'color: red');
+    announceResult.innerText = "This is not what I ordered!  -2 seconds";
+    document.querySelector('#pass-fail').append(announceResult);
+    t = t - 2;
+
+    generateNextOrder();
+}
 
 function timesUp() {
     console.log("TIME'S UP!");
-    clearInterval(gameTimer);
-
+    console.log(`total tips: $${tips}`)
+    let divToClear = document.getElementById('game-progress');
+    let h2ToClear = divToClear.getElementsByTagName('h2')[0];
+    divToClear.removeChild(h2ToClear);
+    //YOU WIN
+    if (tips === 0) {
+        console.log("You win! You got enough money to eat!")
+        let header = document.getElementById('header');
+        let youWin = document.createElement('div');
+        youWin.setAttribute('id', 'you-win');
+        youWin.innerHTML = "<span>YOU WIN!</span>";
+        let playAgainButton = document.createElement('button');
+        playAgainButton.setAttribute('id', 'play-again-button');
+        youWin.style.flexDirection = 'column';
+        playAgainButton.style.marginTop = "10px"
+        playAgainButton.innerHTML = "Play Again";
+        header.append(youWin);
+        document.getElementById('you-win').append(playAgainButton);
+        document.querySelector('#start').removeEventListener('click', startGame);
+        document.getElementById('play-again-button').addEventListener('click', playAgain);
+    }
 }
+
+function playAgain() {
+      //play again button
+      let youWin = document.getElementById('you-win');
+      header.removeChild(youWin);
+      roundNumber = roundNumber - 1;
+      let divToClear = document.getElementById('game-progress')
+      let goal = document.querySelector('#goal-for-round');
+      let tipAmount = document.querySelector('#tips-display');
+      let tipDisplay = document.querySelector('#total-tips-label');
+      divToClear.removeChild(goal);
+      divToClear.removeChild(tipAmount);
+      divToClear.removeChild(tipDisplay);
+      tips = 0;
+      generateNextOrder();
+      startGame();
+    console.log("you wanna play")
+}
+
 
 
 /*
@@ -135,26 +216,21 @@ Event listeners
 document.querySelector('#serve-drink').addEventListener('click', (e) => {
     let result;
     if (drinkOrdered.size === drinkServed.size &&
-        drinkOrdered.size === drinkServed.size &&
-        drinkOrdered.size === drinkServed.size) {
-            result = "SUCCESS!"
+        drinkOrdered.milk === drinkServed.milk &&
+        drinkOrdered.drink === drinkServed.drink ) {
+             success();
         } else {
-            result = "This is not what I ordered!"
+             failure(); 
         };
-    document.querySelector('#result').remove();
-    let announceResult = document.createElement('h1')
-    announceResult.setAttribute('id', 'result');
-    announceResult.innerText = result;
-    document.querySelector('#pass-fail').append(announceResult);
-    generateNextOrder();
+
 })
 
+
 //starts timer and loads round
-document.querySelector('#start').addEventListener('click', runTimer);
-document.querySelector('#start').addEventListener('click', generateOrder);
-
-
-
+document.querySelector('#start').addEventListener('click', startGame);
 generateSizeButtons(sizeArr);
 generateMilkButtons(milkArr);
 generateDrinkButtons(drinkArr);
+
+
+
