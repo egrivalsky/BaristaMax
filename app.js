@@ -27,6 +27,7 @@ let request;
 let drink;
 let roundNumber = 0;
 let tips = 0;
+let tipsGoal = roundNumber * 5 + 5;
 
 //Functions
 
@@ -47,12 +48,13 @@ function startGame() {
     document.getElementById('game-progress').append(h2ForTipsAmount);
     let goalForRound = document.createElement('span');
     goalForRound.setAttribute('id', 'goal-for-round');
-    goalForRound.innerText = `You need ${roundNumber * 5 + 5} for lunch.`
+    goalForRound.innerText = `You need ${tipsGoal} for lunch.`
     document.querySelector('#game-progress').append(goalForRound);
+    document.querySelector('#serve-drink').addEventListener('click', serveDrink);
 
 }
 function runTimer() {
-    t = 2;
+    t = 10;
     // ** - reacts to buttons ONLY because spans do not have a class assigned - **
     document.querySelector('#select-from').addEventListener('click', chooseIngredients);
     console.log('start button clicked');
@@ -79,7 +81,6 @@ const generateOrder = () => {
     drinkOrdered.milk = milk;
     drinkOrdered.drink = drink;
     document.getElementById('customer-order').innerHTML =  requestSentence;
-    console.log(requestSentence)
 }
 
 const generateSizeButtons = (arr) => {
@@ -135,9 +136,23 @@ const chooseIngredients = (e) => {
     } 
     };
 
-const success = () => {
+//checks if drink has correct ingredients then generates next order
+function serveDrink() {
     document.querySelector('#result').remove();
-    let announceResult = document.createElement('h1')
+    if (drinkOrdered.size === drinkServed.size &&
+        drinkOrdered.milk === drinkServed.milk &&
+        drinkOrdered.drink === drinkServed.drink ) {
+             success();
+        } else {
+             failure(); 
+        };
+
+}
+
+
+const success = () => {
+    //document.querySelector('#result').remove();
+    let announceResult = document.createElement('h2')
     announceResult.setAttribute('id', 'result');
     announceResult.setAttribute('style', 'color: blue');
     announceResult.innerText = "SUCCESS! +$1";
@@ -150,80 +165,76 @@ const success = () => {
 }
     
 const failure = () => {
-    document.querySelector('#result').remove();
+    //document.querySelector('#result').remove();
     let announceResult = document.createElement('h2')
     announceResult.setAttribute('id', 'result');
     announceResult.setAttribute('style', 'color: red');
     announceResult.innerText = "This is not what I ordered!  -2 seconds";
     document.querySelector('#pass-fail').append(announceResult);
     t = t - 2;
-
     generateNextOrder();
 }
 
 function timesUp() {
     console.log("TIME'S UP!");
-    console.log(`total tips: $${tips}`)
+    console.log(`total tips: $${tips}`);
+    document.querySelector('#serve-drink').removeEventListener('click', serveDrink);
     let divToClear = document.getElementById('game-progress');
     let h2ToClear = divToClear.getElementsByTagName('h2')[0];
     divToClear.removeChild(h2ToClear);
-    //YOU WIN
-    if (tips === 0) {
-        console.log("You win! You got enough money to eat!")
+    //YOU WIN THE ROUND
+    if (tips >= tipsGoal) {
         let header = document.getElementById('header');
-        let youWin = document.createElement('div');
-        youWin.setAttribute('id', 'you-win');
-        youWin.innerHTML = "<span>YOU WIN!</span>";
+        let winLose = document.createElement('div');
+        winLose.setAttribute('id', 'win-lose');
+        winLose.innerHTML = "<span>YOU WIN!</span>";
         let playAgainButton = document.createElement('button');
         playAgainButton.setAttribute('id', 'play-again-button');
-        youWin.style.flexDirection = 'column';
+        winLose.style.flexDirection = 'column';
         playAgainButton.style.marginTop = "10px"
         playAgainButton.innerHTML = "Play Again";
-        header.append(youWin);
-        document.getElementById('you-win').append(playAgainButton);
+        header.append(winLose);
+        document.getElementById('win-lose').append(playAgainButton);
         document.querySelector('#start').removeEventListener('click', startGame);
         document.getElementById('play-again-button').addEventListener('click', playAgain);
+    //YOU LOSE THE ROUND   
+    } else {
+        console.log("sorry, you lost");
+        let header = document.getElementById('header');
+        let winLose = document.createElement('div');
+        winLose.setAttribute('id', 'win-lose');
+        winLose.style.flexDirection = 'column';
+        winLose.innerHTML = "<span>WOMP WOMP YOU LOST!</span>";
+        let playAgainButton = document.createElement('button');
+        playAgainButton.setAttribute('id', 'play-again-button');
+        playAgainButton.style.marginTop = "10px"
+        playAgainButton.innerHTML = "Play Again";
+        header.append(winLose);
+        document.getElementById('win-lose').append(playAgainButton);
+        document.querySelector('#start').removeEventListener('click', startGame);
+        document.getElementById('play-again-button').addEventListener('click', playAgain);
+
     }
 }
 
 function playAgain() {
       //play again button
-      let youWin = document.getElementById('you-win');
-      header.removeChild(youWin);
+      let header = document.getElementById('header');
+      let winLose = document.getElementById('win-lose');
+      header.removeChild(winLose);
       roundNumber = roundNumber - 1;
       let divToClear = document.getElementById('game-progress')
-      let goal = document.querySelector('#goal-for-round');
-      let tipAmount = document.querySelector('#tips-display');
-      let tipDisplay = document.querySelector('#total-tips-label');
-      divToClear.removeChild(goal);
-      divToClear.removeChild(tipAmount);
-      divToClear.removeChild(tipDisplay);
+      let goalForRound = document.querySelector('#goal-for-round');
+      let h2ForTipsAmount = document.querySelector('#tips-display');
+      let successDisplayDiv = document.querySelector('#pass-fail');
+      successDisplayDiv.innerHTML = "<h2 id='result'></h2>";
+      divToClear.removeChild(goalForRound);
+      divToClear.removeChild(h2ForTipsAmount);
       tips = 0;
       generateNextOrder();
       startGame();
     console.log("you wanna play")
 }
-
-
-
-/*
-Event listeners
-*/
-//adds ingredients to drink being made
-
-
-//checks if drink has correct ingredients then generates next order
-document.querySelector('#serve-drink').addEventListener('click', (e) => {
-    let result;
-    if (drinkOrdered.size === drinkServed.size &&
-        drinkOrdered.milk === drinkServed.milk &&
-        drinkOrdered.drink === drinkServed.drink ) {
-             success();
-        } else {
-             failure(); 
-        };
-
-})
 
 
 //starts timer and loads round
