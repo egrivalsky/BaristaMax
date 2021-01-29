@@ -23,6 +23,7 @@ div {
     width: 300px;
     height: 300px;
 }
+
 span {
     display: flex;
     flex-wrap: wrap;
@@ -39,6 +40,7 @@ ul {
 }
 li {
     margin: 10px;
+    font-size: 36px;
 }
 
 button {
@@ -84,11 +86,17 @@ by id
     font-size: 24px;    
 }
 #select-from {
-
     display: flex;
     justify-content: center;
+    flex-flow: wrap;
     align-items: center;
-    font-size: 12px;
+    align-content: stretch;
+}
+
+#select-from button {
+    flex-grow: 1;
+    font-size: 24px;
+
 }
 #drink-in-progress {
     display: flex;
@@ -159,6 +167,8 @@ by id
 
 #goal-for-round {
     margin: 0;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .background {
@@ -183,4 +193,10 @@ main div {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 75px;
+}
+
+#tips-display {
+    background-color: green;
+    border-radius: 90%;
+    padding: 10px;
 }

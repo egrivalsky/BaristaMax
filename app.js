@@ -19,7 +19,7 @@ const requestArr = ["I'd like a ", "Let me get a ", "May I please have a ", "Gim
 const drinkArr = ["latte ", "coffee ", "iced latte ", "chai ", "mocha", "iced coffee "];
 
 //Global variables
-let t;
+let t = 45;
 let size;
 let milk;
 let process;
@@ -27,12 +27,13 @@ let request;
 let drink;
 let roundNumber = 0;
 let tips = 0;
-let tipsGoal = roundNumber * 5 + 5;
+let tipsGoal;
 
 //Functions
 
 function startGame() {
     roundNumber = roundNumber + 1;
+    tipsGoal = roundNumber * 5 + 5;
     runTimer();
     generateOrder();
     let gameInfo = document.getElementById('game-info')
@@ -48,21 +49,22 @@ function startGame() {
     document.getElementById('game-progress').append(h2ForTipsAmount);
     let goalForRound = document.createElement('span');
     goalForRound.setAttribute('id', 'goal-for-round');
-    goalForRound.innerText = `You need ${tipsGoal} for lunch.`
+    goalForRound.innerText = `You need $${tipsGoal} for lunch.`
     document.querySelector('#game-progress').append(goalForRound);
     document.querySelector('#serve-drink').addEventListener('click', serveDrink);
 
 }
 function runTimer() {
-    t = 10;
+    t = 45;
     // ** - reacts to buttons ONLY because spans do not have a class assigned - **
     document.querySelector('#select-from').addEventListener('click', chooseIngredients);
     console.log('start button clicked');
     let timerDisplay = document.getElementById('timer')
     const gameTimer = setInterval(() => {
-        if (t >= 0) {
-            timerDisplay.innerText = t;
+        timerDisplay.innerText = t;
+        if (t > 0) {
             t--;
+            timerDisplay.innerText = t;
         } else {
             clearInterval(gameTimer);
             timesUp();
@@ -89,7 +91,8 @@ const generateSizeButtons = (arr) => {
         button.innerText=arr[i];
         button.setAttribute('id', arr[i])
         button.setAttribute('class', 'size');
-        document.getElementById('size').append(button);
+        //document.getElementById('size').append(button);
+        document.getElementById('select-from').append(button)
     }
 }
 const generateMilkButtons = (arr) => {
@@ -98,16 +101,26 @@ const generateMilkButtons = (arr) => {
         button.innerText=arr[i];
         button.setAttribute('id', arr[i]);
         button.setAttribute('class', 'milk');
-        document.getElementById('milk').append(button);
+       // document.getElementById('milk').append(button);
+       document.getElementById('select-from').append(button)
     }
 }
 const generateDrinkButtons = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
+
+    while (arr.length > 0) {
+        let button = document.createElement('button');
+        let buttonValue = arr.splice(Math.floor(Math.random() * arr.length), 1);
+        button.setAttribute('id', buttonValue);
+        button.setAttribute('class', 'drink');
+        button.innerText=buttonValue;
+
+    /*for (let i = 0; i < arr.length; i++) {
         let button = document.createElement('button');
         button.setAttribute('id', arr[i]);
         button.setAttribute('class', 'drink');
-        button.innerText=arr[i];
-        document.getElementById('drink').append(button);
+        button.innerText=arr[i]; */
+       // document.getElementById('drink').append(button);
+       document.getElementById('select-from').append(button)
     }
 }
 
