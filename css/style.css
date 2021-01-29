@@ -2,21 +2,24 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body {
+
+    padding: 100px 100px;
     display: flex;
     flex-direction: column;
-    height: 800px;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin: 0 auto;
 }
 header {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 main {
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    margin: 0 auto;
 }
 
 div {
@@ -52,7 +55,10 @@ h3 {
     margin-top: 75px;
 }
 
-
+video {
+    min-height: 60%;
+    min-width: 100%;
+}
 
 /*
 by id
@@ -104,7 +110,14 @@ by id
     justify-content: space-between;
 }
 #pass-fail { 
-
+    width: 350px;
+    height: 250px;
+    margin: 50px 25px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0, .2);
+    box-shadow: 25px 25px 100px 50px rgba(255, 255, 255, 0.5) inset; 
+    color: white;
+    padding: 20px;
 }
 #game-progress {
     border-radius: 20px;
@@ -117,24 +130,9 @@ by id
     background-color: rgba(255, 255, 255, .5);
 }
 
-#win-lose {
-        border-radius: 20px;
-        width: 500px;
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        order: -1;
-        background-color: rgba(228, 20, 20, 0.6);
-}
-#womp-womp {
-    font-size: 48px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: center;
-}
 
-#win-lose button {
+
+.win-lose button {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
     width: 80%;
@@ -173,12 +171,11 @@ by id
 
 .background {
     background-image: url("/oslo.jpg");
-    height: 1000px;
     background-size: cover;
 }
 
 main div {
-    width: 250px;
+    width: 350px;
     height: 250px;
     margin: 50px 25px;
     border-radius: 20px;
@@ -199,4 +196,32 @@ main div {
     background-color: green;
     border-radius: 90%;
     padding: 10px;
+}
+
+#chicken-dinner {
+    overflow: hidden;
+}
+
+#loser {
+    background-color: rgba(228, 20, 20, 0.6);
+}
+
+.win-lose {
+    margin: auto 10px;
+    position: absolute;
+    z-index: 1;
+    border-radius: 20px;
+    width: 1000px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    order: -1;
+
+}
+#womp-womp {
+font-size: 48px;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+text-align: center;
 }

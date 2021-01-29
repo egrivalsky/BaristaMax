@@ -17,6 +17,7 @@ const milkArr = ["whole milk", "soy"];
 const processArr = ["brew ", "espresso "];
 const requestArr = ["I'd like a ", "Let me get a ", "May I please have a ", "Gimme a "];
 const drinkArr = ["latte ", "coffee ", "iced latte ", "chai ", "mocha", "iced coffee "];
+const winnerVids = ["lacy-dog.mp4", "ehlers-dog.mp4"];
 
 //Global variables
 let t = 45;
@@ -33,7 +34,7 @@ let tipsGoal;
 
 function startGame() {
     roundNumber = roundNumber + 1;
-    tipsGoal = roundNumber * 5 + 5;
+    tipsGoal = roundNumbergit * 5 + 3 ;
     runTimer();
     generateOrder();
     let gameInfo = document.getElementById('game-info')
@@ -57,6 +58,7 @@ function startGame() {
 function runTimer() {
     t = 45;
     // ** - reacts to buttons ONLY because spans do not have a class assigned - **
+    //update -- actually I don't think this is true anymore... I got rid of the spans here
     document.querySelector('#select-from').addEventListener('click', chooseIngredients);
     console.log('start button clicked');
     let timerDisplay = document.getElementById('timer')
@@ -107,9 +109,13 @@ const generateMilkButtons = (arr) => {
 }
 const generateDrinkButtons = (arr) => {
 
-    while (arr.length > 0) {
+    let thisDrinkArr = [...arr];
+    console.log(thisDrinkArr);
+
+    while (thisDrinkArr.length > 0) {
+
         let button = document.createElement('button');
-        let buttonValue = arr.splice(Math.floor(Math.random() * arr.length), 1);
+        let buttonValue = thisDrinkArr.splice(Math.floor(Math.random() * thisDrinkArr.length), 1);
         button.setAttribute('id', buttonValue);
         button.setAttribute('class', 'drink');
         button.innerText=buttonValue;
@@ -190,6 +196,7 @@ const failure = () => {
 
 function timesUp() {
     console.log("TIME'S UP!");
+    document.getElementById('pass-fail').style.display = 'none';
     console.log(`total tips: $${tips}`);
     document.querySelector('#serve-drink').removeEventListener('click', serveDrink);
     let divToClear = document.getElementById('game-progress');
@@ -197,33 +204,38 @@ function timesUp() {
     divToClear.removeChild(h2ToClear);
     //YOU WIN THE ROUND
     if (tips >= tipsGoal) {
+        videoChoice = Math.floor(Math.random() * winnerVids.length);
         let header = document.getElementById('header');
         let winLose = document.createElement('div');
-        winLose.setAttribute('id', 'win-lose');
-        winLose.innerHTML = "<span>YOU WIN!</span>";
+        winLose.setAttribute('class', 'win-lose');
+        winLose.innerTEXT = "YOU WIN";
+        winLose.setAttribute('id', 'chicken-dinner')
+        winLose.innerHTML = `<video autoplay muted loop> <source src='/${winnerVids[videoChoice]}' type='video/mp4' /> <span> YOU WIN </span> </video>`;
         let playAgainButton = document.createElement('button');
         playAgainButton.setAttribute('id', 'play-again-button');
         winLose.style.flexDirection = 'column';
         playAgainButton.style.marginTop = "10px"
         playAgainButton.innerHTML = "Play Again";
         header.append(winLose);
-        document.getElementById('win-lose').append(playAgainButton);
+        document.getElementById('chicken-dinner').append(playAgainButton);
         document.querySelector('#start').removeEventListener('click', startGame);
+        document.getElementById('chicken-dinner').addEventListener('click', playAgain);
         document.getElementById('play-again-button').addEventListener('click', playAgain);
     //YOU LOSE THE ROUND   
     } else {
         console.log("sorry, you lost");
         let header = document.getElementById('header');
         let winLose = document.createElement('div');
-        winLose.setAttribute('id', 'win-lose');
+        winLose.setAttribute('class', 'win-lose');
         winLose.style.flexDirection = 'column';
         winLose.innerHTML = "<span id='womp-womp'>WOMP WOMP YOU LOST!</span>";
+        winLose.setAttribute('id', 'loser')
         let playAgainButton = document.createElement('button');
         playAgainButton.setAttribute('id', 'play-again-button');
         playAgainButton.style.marginTop = "10px"
         playAgainButton.innerHTML = "Play Again";
         header.append(winLose);
-        document.getElementById('win-lose').append(playAgainButton);
+        document.getElementById('loser').append(playAgainButton);
         document.querySelector('#start').removeEventListener('click', startGame);
         document.getElementById('play-again-button').addEventListener('click', playAgain);
 
@@ -233,7 +245,7 @@ function timesUp() {
 function playAgain() {
       //play again button
       let header = document.getElementById('header');
-      let winLose = document.getElementById('win-lose');
+      let winLose = document.querySelector('.win-lose');
       header.removeChild(winLose);
       roundNumber = roundNumber - 1;
       let divToClear = document.getElementById('game-progress')
