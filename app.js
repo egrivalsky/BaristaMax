@@ -34,7 +34,7 @@ let tipsGoal;
 
 function startGame() {
     roundNumber = roundNumber + 1;
-    tipsGoal = roundNumbergit * 5 + 3 ;
+    tipsGoal = roundNumber * 5 + 3 ;
     runTimer();
     generateOrder();
     let gameInfo = document.getElementById('game-info')
