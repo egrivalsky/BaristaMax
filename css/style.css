@@ -170,7 +170,7 @@ by id
 }
 
 .background {
-    background-image: url("/oslo.jpg");
+    background-image: url("./oslo.jpg");
     background-size: cover;
 }
 
